@@ -5,7 +5,8 @@ class RoomList extends Component {
         super(props);
 
     this.state = {
-        rooms: []
+        rooms: [],
+        newRoomName: ''
       };
     
       this.roomsRef = this.props.firebase.database().ref('rooms');
@@ -19,6 +20,19 @@ class RoomList extends Component {
                 this.setState({ rooms: this.state.rooms.concat(room) });
               });
       }
+    
+    createRoom(e){
+      e.preventDefault();
+      if (!this.state.newRoomName) { return }
+      this.roomsRef.push({
+   name: this.state.newRoomName
+      });
+      this.setState({ newRoomName: ''});	
+    }
+
+    handleChange(e) {
+      this.setState({ newRoomName: e.target.value })
+    }
 
 
     render() {
@@ -55,6 +69,17 @@ class RoomList extends Component {
 						}
 					</tbody>
 				</table>
+        <div>
+          <form action="#" onSubmit={ (e) => this.createRoom(e) }>
+          <div className="mdl-textfield mdl-js-textfield">
+          <input className="mdl-textfield__input" type="text" value={ this.state.newRoomName } onChange={ (e) => this.handleChange(e) } />
+          <label className="mdl-textfield__label">New Room Name...</label>
+          </div>
+          <div>
+          <input type="submit" value="Submit" className="mdl-button mdl-js-button mdl-button--raised"></input>
+          </div>
+          </form>
+          </div>
         </main>
        </div>
       );
