@@ -20,6 +20,7 @@ class RoomList extends Component {
               });
       }
 
+
     render() {
      return ( 
         <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -28,9 +29,6 @@ class RoomList extends Component {
             <span className="mdl-layout-title">Bloc Chat</span>
            <div className="mdl-layout-spacer"></div>
             <nav className="mdl-navigation mdl-layout--large-screen-only">
-            {this.state.rooms.map((room, index) => 
-            <a className="mdl-navigation__link" key={index} href="">{room.name}</a>
-							)}
             </nav>
           </div>
         </header>
@@ -41,6 +39,23 @@ class RoomList extends Component {
             <a className="mdl-navigation__link" href="">Delete Room</a>
           </nav>
         </div>
+        <main className="main-section">
+        <table className="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <thead>
+          <tr>
+            <th className="mdl-data-table__cell--non-numeric">Available Rooms</th>
+          </tr>
+         </thead>
+					<tbody>
+						{this.state.rooms.map((room, index) => 
+							<tr key={index}>
+								<td className="mdl-data-table__cell--non-numeric">{room.name}</td>
+							</tr>
+							)
+						}
+					</tbody>
+				</table>
+        </main>
        </div>
       );
     }
