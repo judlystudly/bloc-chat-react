@@ -5,7 +5,5 @@ body {
 }
 
 .main-section {
-  position: fixed;
-  top: 25%;
-  left: 50%;
+  right: 50%;
 }
