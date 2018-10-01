@@ -7,3 +7,7 @@ body {
 .main-section {
   right: 50%;
 }
+
+.signin-button, .signout-button, .username {
+  margin: 5px;
+}

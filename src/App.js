@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import RoomList from './components/RoomList';
 import MessageList from './components/MessageList';
-import firebase from 'firebase/app';
-import 'firebase/database';
+import User from './components/User';
+import * as firebase from 'firebase';
 
 // Initialize Firebase
 var config = {
@@ -22,12 +22,16 @@ class App extends Component {
     super(props);
 
 this.state = {
-    activeRoom: {}
+    activeRoom: {},
+    newUser: {}
   };
 }
 
 setActiveRoom = (room) => {
   this.setState({activeRoom: room});
+}
+setUser = (user) => {
+  this.setState({newUser: user});
 }
 
   render() {
@@ -37,22 +41,13 @@ setActiveRoom = (room) => {
       <header className="mdl-layout__header">
         <div className="mdl-layout__header-row">
           <div className="mdl-layout-spacer"></div>
-          <div className="mdl-textfield mdl-js-textfield mdl-textfield--expandable
-                      mdl-textfield--floating-label mdl-textfield--align-right">
-            <label className="mdl-button mdl-js-button mdl-button--icon"
-                   for="fixed-header-drawer-exp">
-              <i className="material-icons">person</i>
-            </label>
-            <div className="mdl-textfield__expandable-holder">
-              <input className="mdl-textfield__input" type="text" name="sample"
-                     id="fixed-header-drawer-exp" />
+          <div className="user-auth"><User firebase={firebase} setUser={this.setUser} newUser={this.state.newUser}/></div>
+              <i className="material-icons">person</i>           
             </div>
-          </div>
-        </div>
       </header>
       <div className="mdl-layout__drawer">
         <span className="mdl-layout-title">Bloc Chat</span>
-        <nav className="mdl-navigation" align="right">
+        <nav className="mdl-navigation">
         <RoomList firebase={firebase} activeRoom={this.state.activeRoom} setActiveRoom={this.setActiveRoom}/>
         </nav>
       </div>
