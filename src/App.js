@@ -52,7 +52,7 @@ setUser = (user) => {
         </nav>
       </div>
       <main className="mdl-layout__content">
-        <div className="page-content"><MessageList firebase={firebase} activeRoom={this.state.activeRoom}/></div>
+        <div className="page-content"><MessageList firebase={firebase} activeRoom={this.state.activeRoom} newUser={this.state.newUser}/></div>
       </main>
     </div>
       )

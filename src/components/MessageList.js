@@ -5,7 +5,7 @@ class MessageList extends Component {
     super(props);
       this.state = {
       messages: [],
-      newMessage: {username: '', content: '', roomId: '', sentAt: ''},
+      newMessage: ''
     };
     this.messagesRef = this.props.firebase.database().ref('messages');
   }
@@ -18,16 +18,30 @@ class MessageList extends Component {
     });
   }
 
+  createMessage = (e) => {
+    this.messagesRef.push({
+      content: this.state.newMessage,
+      roomId: this.props.activeRoom.key,
+      sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
+      username: this.props.newUser.displayName
+    });
+    e.preventDefault();
+		this.setState({newMessage: ''});
+  }
 
+  handleNewMessageChange(e) {
+    this.setState({ newMessage: e.target.value })
+  }
 
   render() {
     return(
-        <table className="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+      <main>
+        <table className="mdl-data-table mdl-js-data-table mdl-shadow--2dp message-table">
         <thead>
           <tr>
-            <th className="mdl-data-table__cell--non-numeric">User Name</th>
-            <th>Message</th>
-            <th>Date/time</th>
+            <th className="mdl-data-table__cell--non-numeric user-name-title">User Name</th>
+            <th className="message-title">Message</th>
+            <th className="date-time-title">Date/time</th>
           </tr>
         </thead>
         <tbody>
@@ -42,8 +56,19 @@ class MessageList extends Component {
             }
         </tbody>
       </table>
-   
-    )
+      <footer className="message-footer">
+      <form onSubmit={ (e) => this.createMessage(e) }>
+      <span className="mdl-textfield mdl-js-textfield message-box">
+      <input className="mdl-textfield__input message-input" type="text" value={ this.state.newMessage } onChange={ (e) => this.handleNewMessageChange(e) } />
+      <label className="mdl-textfield__label">New message...</label>
+      </span>
+      <span>
+      <input type="submit" value="Submit" className="mdl-button mdl-js-button mdl-button--raised message-submit"></input>
+      </span>
+      </form>
+      </footer>
+      </main>
+    );
   }
 }
 

@@ -11,3 +11,43 @@ body {
 .signin-button, .signout-button, .username {
   margin: 5px;
 }
+
+.message-table {
+  width: 100%;
+}
+
+th.user-name-title {
+  width: 20%;
+}
+
+th.message-title {
+  width: 70%;
+ text-align: left;
+}
+
+th.date-time-title {
+  width: 10%;
+  text-align: left;
+}
+
+.message-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: right;
+}
+
+.message-box {
+  margin-right: 600px;
+}
+
+.message-input {
+  width: 850px;
+}
+
+.message-submit {
+  margin-right: 20px;
+}
+
+
